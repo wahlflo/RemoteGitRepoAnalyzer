@@ -109,9 +109,10 @@ def make_assessment(url_to_repo: str):
     gitignore = download(url=url_to_gitignore, return_string=True)
     if gitignore is not None:
         gitignore = gitignore.lower()
-        for phrase in ['.htaccess', 'nginx.conf', 'conf', 'token', 'uploads', '.key', '.pem']:
-            if phrase in gitignore:
-                findings.append(Finding(level=2, message='the phrase "{}" occurred in the gitignore file'.format(phrase), value=url_to_gitignore))
+        for line in gitignore.split('\n'):
+            for phrase in ['.htaccess', 'nginx.conf', 'conf', 'token', 'uploads', '.key', '.pem']:
+                if phrase in line:
+                    findings.append(Finding(level=2, message='the phrase "{}" occurred in the gitignore file'.format(phrase), value=line))
 
     info('found {} findings.'.format(len(findings)))
     if len(findings) == 0:

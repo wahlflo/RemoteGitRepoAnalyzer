@@ -1,6 +1,7 @@
 
 EXTENSION_TO_IMPORTANCE = {
-    'jpg': 1,
+    'jpg': 0,
+    'png': 0,
     'js': 0,
     'css': 0,
     'ttf': 0,
@@ -15,6 +16,7 @@ EXTENSION_TO_IMPORTANCE = {
     'html': 0,
     'htm': 0,
     'php': 1,
+    'psd': 0,
     'otf': 0,
     'eot': 0,
     'key': 3,
@@ -35,4 +37,6 @@ EXTENSION_TO_IMPORTANCE = {
     'zip': 2,
     'tpl': 1,
     'htpasswd': 3,
+    'yml': 3,
+    'yaml': 3,
 }
