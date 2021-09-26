@@ -47,4 +47,8 @@ EXTENSION_TO_IMPORTANCE = {
     'bcmap': 0,
     'eml': 2,
     'msg': 2,
+    'gitignore': 1,
+    'webmanifest': 0,
+    'ppt': 2,
+    'pptx': 2,
 }
