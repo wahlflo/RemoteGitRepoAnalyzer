@@ -123,9 +123,9 @@ def make_assessment(url_to_repo: str):
     finding: Finding
     for finding in findings:
         if finding.level == 1:
-            print('[*] {}: {}'.format(finding.message, colorize_string(color=Color.BLUE, text=finding.value)))
+            print('[*] {}: {}'.format(finding.message, colorize_string(color=Color.GREEN, text=finding.value)))
         elif finding.level == 2:
-            print('[+] {}: {}'.format(finding.message, colorize_string(color=Color.MAGENTA, text=finding.value)))
+            print('[+] {}: {}'.format(finding.message, colorize_string(color=Color.YELLOW, text=finding.value)))
         else:
             print('[!] {}: {}'.format(finding.message, colorize_string(color=Color.RED, text=finding.value)))
 
@@ -145,6 +145,7 @@ def main():
     parser.add_argument('--config', dest='config', help="Shows the config file", action='store_true', default=False)
     parser.add_argument('--assessment', dest='assessment', help="Analyzes the content of the repo to find interesting files or configs", action='store_true', default=False)
     parser.add_argument('--store', dest='store_files', help="store the files which have been downloaded", action='store_true', default=False)
+    parser.add_argument('-v', '--verbose', dest='verbose', help="verbose mode: shows also unimportant files etc.", action='store_true', default=False)
 
     parsed_arguments = parser.parse_args()
 
@@ -172,7 +173,7 @@ def main():
         if parsed_arguments.structure:
             show_file_structure(index_file=index_file)
         elif parsed_arguments.files:
-            show_file_names(index_file=index_file)
+            show_file_names(index_file=index_file, verbose=parsed_arguments.verbose)
         elif parsed_arguments.file_extensions:
             show_file_extensions(index_file=index_file)
         return
@@ -192,7 +193,7 @@ def main():
         index_file = download(url=url_to_index_file)
         if index_file is not None:
             index_file = GitIndexParser.parse(file=index_file)
-            show_file_names(index_file=index_file)
+            show_file_names(index_file=index_file, verbose=parsed_arguments.verbose)
 
     elif parsed_arguments.file_extensions:
         url_to_index_file = url_to_repo + '.git/index'

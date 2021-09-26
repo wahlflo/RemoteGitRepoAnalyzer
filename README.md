@@ -31,6 +31,7 @@ optional arguments:
   --config              Shows the config file
   --assessment          Analyzes the content of the repo to find interesting files or configs
   --store               store the files which have been downloaded
+  -v, --verbose         verbose mode: shows also unimportant files etc.
 ```
 
 ## Example

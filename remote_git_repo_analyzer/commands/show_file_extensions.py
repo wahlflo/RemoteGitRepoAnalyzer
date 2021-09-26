@@ -8,7 +8,7 @@ def show_file_extensions(index_file: GitIndexFile) -> None:
 
     extension_set = set()
     for entry in index_file.get_entries():
-        extension = entry.name.split('/')[-1].split('.')[-1]
+        extension = entry.name.split('/')[-1].split('.')[-1].lower()
         extension_set.add(extension)
 
     for extension in extension_set:
@@ -18,8 +18,8 @@ def show_file_extensions(index_file: GitIndexFile) -> None:
         elif importance == 0:
             print(colorize_string(color=Color.GREEN, text=extension))
         elif importance == 1:
-            print(colorize_string(color=Color.YELLOW, text=extension))
-        elif importance == 2:
             print(colorize_string(color=Color.MAGENTA, text=extension))
+        elif importance == 2:
+            print(colorize_string(color=Color.YELLOW, text=extension))
         elif importance == 3:
             print(colorize_string(color=Color.RED, text=extension))
