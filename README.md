@@ -30,7 +30,7 @@ optional arguments:
   --gitignore           Shows the gitignore file
   --config              Shows the config file
   --assessment          Analyzes the content of the repo to find interesting files or configs
-  --store               store the files which where downloaded
+  --store               store the files which have been downloaded
 ```
 
 ## Example
