@@ -139,7 +139,7 @@ def main():
     parser.add_argument('-h', '--help', dest='help', help="prints the help text", action='store_true', default=False)
     parser.add_argument('-s', '--structure', dest='structure', help="prints out all checked in files in the repo", action='store_true', default=False)
     parser.add_argument('-e', '--file_extensions', dest='file_extensions', help="prints out all file_extensions of files in the repo", action='store_true', default=False)
-    parser.add_argument('--files', dest='files', help="prints out all files in the repo", action='store_true', default=False)
+    parser.add_argument('--files', dest='files', help="prints out important files in the repo (with -v all files)", action='store_true', default=False)
     parser.add_argument('--useragent', dest='useragent', help="overrides the default user agent", type=str, default='RemoteGitRepoAnalyzer')
     parser.add_argument('--gitignore', dest='gitignore', help="Shows the gitignore file", action='store_true', default=False)
     parser.add_argument('--config', dest='config', help="Shows the config file", action='store_true', default=False)

@@ -24,7 +24,7 @@ optional arguments:
   -s, --structure       prints out all checked in files in the repo
   -e, --file_extensions
                         prints out all file_extensions of files in the repo
-  --files               prints out all files in the repo
+  --files               prints out important files in the repo (with -v all files)
   --useragent USERAGENT
                         overrides the default user agent
   --gitignore           Shows the gitignore file
