@@ -6,7 +6,7 @@ A cli script analyze the content of a remote git repository, or a local index fi
 
 Install the package with pip
 
-    pip install git+https://github.com/wahlflo/RemoteGitRepoAnalyzer
+    pip3 install git+https://github.com/wahlflo/RemoteGitRepoAnalyzer
 
 ## Usage
 Type ```remoteGitRepoAnalyzer --help``` to view the help.
