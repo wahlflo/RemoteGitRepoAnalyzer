@@ -1,0 +1,4 @@
+cli-formatter>=1.2.0
+git_index_parser>=1.0.0
+requests
+urllib3
