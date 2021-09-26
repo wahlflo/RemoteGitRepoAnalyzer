@@ -89,7 +89,7 @@ def make_assessment(url_to_repo: str):
             elif importance == 3:
                 findings.append(Finding(level=3, message='interesting file found', value=entry.name))
             else:
-                for phrase in ['password', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential', 'config']:
+                for phrase in ['password', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential', 'config', 'htaccess', 'htpasswd']:
                     if phrase in entry.name:
                         findings.append(Finding(level=2, message='interesting filename found', value=entry.name))
 

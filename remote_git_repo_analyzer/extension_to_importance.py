@@ -28,10 +28,11 @@ EXTENSION_TO_IMPORTANCE = {
     'tar': 2,
     'db': 2,
     'sql': 2,
-    'ini': 2,
+    'ini': 3,
     'gz': 2,
     'json': 2,
     'pdf': 2,
     'zip': 2,
     'tpl': 1,
+    'htpasswd': 3,
 }
