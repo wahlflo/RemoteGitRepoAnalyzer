@@ -143,7 +143,7 @@ def main():
     parser.add_argument('--gitignore', dest='gitignore', help="Shows the gitignore file", action='store_true', default=False)
     parser.add_argument('--config', dest='config', help="Shows the config file", action='store_true', default=False)
     parser.add_argument('--assessment', dest='assessment', help="Analyzes the content of the repo to find interesting files or configs", action='store_true', default=False)
-    parser.add_argument('--store', dest='store_files', help="store the files which where downloaded", action='store_true', default=False)
+    parser.add_argument('--store', dest='store_files', help="store the files which have been downloaded", action='store_true', default=False)
 
     parsed_arguments = parser.parse_args()
 
