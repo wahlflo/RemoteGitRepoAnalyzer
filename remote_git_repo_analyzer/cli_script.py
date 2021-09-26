@@ -61,12 +61,12 @@ def make_assessment(url_to_repo: str):
                 url = line[4:]
                 new_url = url.replace('http://', '')
                 new_url = new_url.replace('https://', '')
+                new_url = new_url.replace('ssh://', '')
                 if '@' in new_url:
                     username_plus_password = new_url.split('@')[0]
                     findings.append(Finding(level=1, message='URL of the repository origin', value=url.split('@')[1]))
                     if ':' in username_plus_password:
                         username = username_plus_password.split(':')[0]
-                        findings.append(Finding(level=1, message='username of the git user', value=username))
                         findings.append(Finding(level=3, message='username and password are included in the config file', value=username_plus_password))
                     else:
                         findings.append(Finding(level=1, message='username of the git user', value=username_plus_password))
@@ -101,7 +101,7 @@ def make_assessment(url_to_repo: str):
         readme_file = readme_file.lower()
         for phrase in ['password', 'api-key', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential']:
             if phrase in readme_file:
-                findings.append(Finding(level=2, message='the phrase "{}" occurred in the README.md file', value=url_to_readme_file))
+                findings.append(Finding(level=2, message='the phrase "{}" occurred in the README.md file'.format(phrase), value=url_to_readme_file))
 
     # Analyze the .gitignore file
     url_to_gitignore = url_to_repo + '.gitignore'
@@ -111,7 +111,7 @@ def make_assessment(url_to_repo: str):
         gitignore = gitignore.lower()
         for phrase in ['.htaccess', 'nginx.conf', 'conf', 'token', 'uploads', '.key', '.pem']:
             if phrase in gitignore:
-                findings.append(Finding(level=2, message='the phrase "{}" occurred in the gitignore file', value=url_to_gitignore))
+                findings.append(Finding(level=2, message='the phrase "{}" occurred in the gitignore file'.format(phrase), value=url_to_gitignore))
 
     info('found {} findings.'.format(len(findings)))
     if len(findings) == 0:
