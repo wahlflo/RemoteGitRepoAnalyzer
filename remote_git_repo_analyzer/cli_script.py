@@ -78,20 +78,24 @@ def make_assessment(url_to_repo: str):
     info('analyze the index file: "{}"'.format(url_to_index_file))
     index_file = download(url=url_to_index_file)
     if index_file is not None:
-        index_file = GitIndexParser.parse(file=index_file)
-        for entry in index_file.get_entries():
-            extension = entry.name.split('/')[-1].split('.')[-1]
-            importance = EXTENSION_TO_IMPORTANCE.get(extension, None)
-            if importance == 0 or importance == 1:
-                pass
-            elif importance == 2:
-                findings.append(Finding(level=2, message='interesting file found', value=entry.name))
-            elif importance == 3:
-                findings.append(Finding(level=3, message='interesting file found', value=entry.name))
-            else:
-                for phrase in ['password', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential', 'config', 'htaccess', 'htpasswd']:
-                    if phrase in entry.name:
-                        findings.append(Finding(level=2, message='interesting filename found', value=entry.name))
+        try:
+            index_file = GitIndexParser.parse(file=index_file)
+        except GitIndexParserException:
+            error('index file could not be parsed')
+        else:
+            for entry in index_file.get_entries():
+                extension = entry.name.split('/')[-1].split('.')[-1]
+                importance = EXTENSION_TO_IMPORTANCE.get(extension, None)
+                if importance == 0 or importance == 1:
+                    pass
+                elif importance == 2:
+                    findings.append(Finding(level=2, message='interesting file found', value=entry.name))
+                elif importance == 3:
+                    findings.append(Finding(level=3, message='interesting file found', value=entry.name))
+                else:
+                    for phrase in ['password', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential', 'config', 'htaccess', 'htpasswd']:
+                        if phrase in entry.name:
+                            findings.append(Finding(level=2, message='interesting filename found', value=entry.name))
 
     # Analyze the README.md
     url_to_readme_file = url_to_repo + 'README.md'

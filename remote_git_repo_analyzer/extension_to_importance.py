@@ -51,4 +51,6 @@ EXTENSION_TO_IMPORTANCE = {
     'webmanifest': 0,
     'ppt': 2,
     'pptx': 2,
+    'feature': 0,
+    'phtml': 1,
 }
