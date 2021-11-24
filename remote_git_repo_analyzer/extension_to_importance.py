@@ -123,6 +123,7 @@ def _estimate_importance_modifier_by_directory_name(directory_name: str) -> Impo
         'template': ImportanceModifier.decrease,
         'localization': ImportanceModifier.decrease,
         'wp-includes': ImportanceModifier.decrease,
+        'wp-content': ImportanceModifier.decrease,
         'languages': ImportanceModifier.decrease,
 
         'conf': ImportanceModifier.increase,
