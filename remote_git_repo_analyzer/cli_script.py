@@ -6,7 +6,7 @@ import requests
 import io
 import urllib3
 
-from remote_git_repo_analyzer.extension_to_importance import EXTENSION_TO_IMPORTANCE
+from remote_git_repo_analyzer.extension_to_importance import estimate_importance_of_file, Importance
 
 urllib3.disable_warnings()
 
@@ -47,7 +47,7 @@ class Finding:
         self.value = value
 
 
-def make_assessment(url_to_repo: str):
+def make_assessment(url_to_repo: str, verbose: bool):
     findings = list()
 
     # Analyze the config file
@@ -84,18 +84,13 @@ def make_assessment(url_to_repo: str):
             error('index file could not be parsed')
         else:
             for entry in index_file.get_entries():
-                extension = entry.name.split('/')[-1].split('.')[-1]
-                importance = EXTENSION_TO_IMPORTANCE.get(extension, None)
-                if importance == 0 or importance == 1:
-                    pass
-                elif importance == 2:
+                importance = estimate_importance_of_file(filepath=entry.name)
+                if importance == Importance.normal and verbose:
+                    findings.append(Finding(level=1, message='file found', value=entry.name))
+                elif importance == Importance.maybe_interesting:
                     findings.append(Finding(level=2, message='interesting file found', value=entry.name))
-                elif importance == 3:
+                elif importance == Importance.certain_interesting:
                     findings.append(Finding(level=3, message='interesting file found', value=entry.name))
-                else:
-                    for phrase in ['password', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential', 'config', 'htaccess', 'htpasswd']:
-                        if phrase in entry.name:
-                            findings.append(Finding(level=2, message='interesting filename found', value=entry.name))
 
     # Analyze the README.md
     url_to_readme_file = url_to_repo + 'README.md'
@@ -216,7 +211,7 @@ def main():
         print(config_file)
 
     elif parsed_arguments.assessment:
-        make_assessment(url_to_repo=url_to_repo)
+        make_assessment(url_to_repo=url_to_repo, verbose=parsed_arguments.verbose)
 
 
 if __name__ == '__main__':
