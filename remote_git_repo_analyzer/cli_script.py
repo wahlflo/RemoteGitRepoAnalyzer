@@ -100,7 +100,7 @@ def make_assessment(url_to_repo: str, verbose: bool):
         readme_file = readme_file.lower()
         for phrase in ['password', 'api-key', 'apikey', 'token', 'passwort', 'key', 'credential', 'confidential']:
             if phrase in readme_file:
-                findings.append(Finding(level=2, message='the phrase "{}" occurred in the README.md file'.format(phrase), value=url_to_readme_file))
+                findings.append(Finding(level=3, message='the phrase "{}" occurred in the README.md file'.format(phrase), value=url_to_readme_file))
 
     # Analyze the .gitignore file
     url_to_gitignore = url_to_repo + '.gitignore'
