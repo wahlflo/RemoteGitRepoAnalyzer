@@ -6,7 +6,7 @@ with open('README.md', mode='r', encoding='utf-8') as readme_file:
 
 setuptools.setup(
     name="remote_git_repo_analyzer",
-    version="2.0.1",
+    version="2.0.2",
     author="Florian Wahl",
     author_email="florian.wahl.developer@gmail.com",
     description="A cli script analyze the content of a remote git repo or a local index file",
