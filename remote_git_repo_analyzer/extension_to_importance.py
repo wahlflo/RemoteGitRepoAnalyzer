@@ -125,6 +125,8 @@ def _estimate_importance_modifier_by_directory_name(directory_name: str) -> Impo
         'wp-includes': ImportanceModifier.decrease,
         'wp-content': ImportanceModifier.decrease,
         'languages': ImportanceModifier.decrease,
+        'example': ImportanceModifier.decrease,
+        'public': ImportanceModifier.decrease,
 
         'conf': ImportanceModifier.increase,
         'config': ImportanceModifier.increase,
@@ -132,6 +134,9 @@ def _estimate_importance_modifier_by_directory_name(directory_name: str) -> Impo
         'logs': ImportanceModifier.increase,
         'certificate': ImportanceModifier.increase,
         'certificates': ImportanceModifier.increase,
+        'backup': ImportanceModifier.increase,
+        'database': ImportanceModifier.increase,
+        'export': ImportanceModifier.increase,
     }.get(directory_name, ImportanceModifier.no_change)
 
 
