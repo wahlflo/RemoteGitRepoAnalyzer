@@ -127,6 +127,8 @@ def _estimate_importance_modifier_by_directory_name(directory_name: str) -> Impo
         'languages': ImportanceModifier.decrease,
         'example': ImportanceModifier.decrease,
         'public': ImportanceModifier.decrease,
+        'testcase': ImportanceModifier.decrease,
+        'testcases': ImportanceModifier.decrease,
 
         'conf': ImportanceModifier.increase,
         'config': ImportanceModifier.increase,
@@ -137,6 +139,10 @@ def _estimate_importance_modifier_by_directory_name(directory_name: str) -> Impo
         'backup': ImportanceModifier.increase,
         'database': ImportanceModifier.increase,
         'export': ImportanceModifier.increase,
+        'private': ImportanceModifier.increase,
+        'protected': ImportanceModifier.increase,
+        'upload': ImportanceModifier.increase,
+        'uploads': ImportanceModifier.increase,
     }.get(directory_name, ImportanceModifier.no_change)
 
 
