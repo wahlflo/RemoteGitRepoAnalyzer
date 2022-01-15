@@ -48,9 +48,13 @@ def _parse_commit_logs(commit_logs: str) -> List[CommitLog]:
 
             # parse attributes
             attributes = commit_log_parts[0].split(' ')
-            if len(attributes) != 6:
+            if len(attributes) < 6:
                 raise MalformedCommitLog()
-            parent_commit_id, commit_id, user_name, user_email, timestamp, timezone = attributes
+            parent_commit_id, commit_id = attributes[:2]
+
+            attributes = list(reversed(attributes[2:]))
+            timezone, timestamp, user_email = attributes[:3]
+            user_name = ' '.join(attributes[3:])
 
             # parse timestamp
             try:
