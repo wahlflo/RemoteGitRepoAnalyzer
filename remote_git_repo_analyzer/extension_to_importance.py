@@ -78,6 +78,7 @@ def estimate_importance_of_file_extension(extension: str) -> Importance:
 
         'htpasswd': Importance.certain_interesting,
         'key': Importance.certain_interesting,
+        'pem': Importance.certain_interesting,
         'conf': Importance.certain_interesting,
         'config': Importance.certain_interesting,
         'sh': Importance.certain_interesting,
