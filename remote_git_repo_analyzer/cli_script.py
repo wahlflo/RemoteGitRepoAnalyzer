@@ -1,7 +1,7 @@
 from git_index_parser import GitIndexParser, GitIndexParserException
 import argparse
 from cli_formatter.output_formatting import colorize_string, Color, error, warning, info
-from remote_git_repo_analyzer.commands import show_file_structure, show_file_names, show_file_extensions
+from remote_git_repo_analyzer.commands import show_file_structure, show_file_names, show_file_extensions, show_commit_logs
 import requests
 import io
 import urllib3
@@ -30,7 +30,7 @@ def download(url: str, return_string: bool = False) -> io.BytesIO or str or None
         return None
 
     if STORE_FILES:
-        filename = url.split('/')[-1]
+        filename = url.split('.git/')[-1].replace('/', '_').replace('\\', '_').replace('.', '')
         with open('gitRepoAnalyzer_{}'.format(filename), mode='wb') as outout:
             outout.write(response.content)
 
@@ -142,6 +142,7 @@ def main():
     parser.add_argument('--gitignore', dest='gitignore', help="ACTION: Shows the gitignore file", action='store_true', default=False)
     parser.add_argument('--config', dest='config', help="ACTION: Shows the config file", action='store_true', default=False)
     parser.add_argument('--assessment', dest='assessment', help="ACTION: Analyzes the content of the repo to find interesting files or configs (default action)", action='store_true', default=False)
+    parser.add_argument('--logs', dest='logs', help="ACTION: Shows the commit logs of the current branch", action='store_true', default=False)
     parser.add_argument('--useragent', dest='useragent', help="OPTION: overrides the default user agent", type=str, default='RemoteGitRepoAnalyzer')
     parser.add_argument('--store', dest='store_files', help="OPTION: store the files which have been downloaded", action='store_true', default=False)
     parser.add_argument('-v', '--verbose', dest='verbose', help="OPTION: verbose mode, shows also unimportant files etc.", action='store_true', default=False)
@@ -204,11 +205,20 @@ def main():
     elif parsed_arguments.gitignore:
         url_to_gitignore = url_to_repo + '.gitignore'
         gitignore_file = download(url=url_to_gitignore, return_string=True)
-        print(gitignore_file)
+        if gitignore_file is not None:
+            print(gitignore_file)
+
     elif parsed_arguments.config:
         url_to_config = url_to_repo + '.git/config'
         config_file = download(url=url_to_config, return_string=True)
-        print(config_file)
+        if config_file is not None:
+            print(config_file)
+
+    elif parsed_arguments.logs:
+        url_to_config = url_to_repo + '.git/logs/HEAD'
+        log_file = download(url=url_to_config, return_string=True)
+        if log_file is not None:
+            show_commit_logs(log_file)
 
     else:
         # making an assessment is the default action
