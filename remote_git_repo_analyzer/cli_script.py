@@ -132,19 +132,19 @@ def make_assessment(url_to_repo: str, verbose: bool):
 def main():
     global USERAGENT, STORE_FILES
 
-    parser = argparse.ArgumentParser(usage='remoteGitRepoAnalyzer [OPTION]...', description='A cli script analyze the content of a remote git repo or a local index file', add_help=False)
-    parser.add_argument('-u', '--url', dest="url", help="URL to remote git repository", type=str, default=None)
-    parser.add_argument('-i', '--index', dest="file_path", help="Path to local index file - prints out all checked in files in the repo", type=str, default=None)
+    parser = argparse.ArgumentParser(usage='remoteGitRepoAnalyzer INPUT ACTION [OPTIONS]...', description='A cli script analyze the content of a remote git repo or a local index file', add_help=False)
+    parser.add_argument('-u', '--url', dest="url", help="INPUT: URL to remote git repository", type=str, default=None)
+    parser.add_argument('-i', '--index', dest="file_path", help="INPUT: Path to local index file - prints out all checked in files in the repo", type=str, default=None)
     parser.add_argument('-h', '--help', dest='help', help="prints the help text", action='store_true', default=False)
-    parser.add_argument('-s', '--structure', dest='structure', help="prints out all checked in files in the repo", action='store_true', default=False)
-    parser.add_argument('-e', '--file_extensions', dest='file_extensions', help="prints out all file_extensions of files in the repo", action='store_true', default=False)
-    parser.add_argument('--files', dest='files', help="prints out important files in the repo (with -v all files)", action='store_true', default=False)
-    parser.add_argument('--useragent', dest='useragent', help="overrides the default user agent", type=str, default='RemoteGitRepoAnalyzer')
-    parser.add_argument('--gitignore', dest='gitignore', help="Shows the gitignore file", action='store_true', default=False)
-    parser.add_argument('--config', dest='config', help="Shows the config file", action='store_true', default=False)
-    parser.add_argument('--assessment', dest='assessment', help="Analyzes the content of the repo to find interesting files or configs", action='store_true', default=False)
-    parser.add_argument('--store', dest='store_files', help="store the files which have been downloaded", action='store_true', default=False)
-    parser.add_argument('-v', '--verbose', dest='verbose', help="verbose mode: shows also unimportant files etc.", action='store_true', default=False)
+    parser.add_argument('-s', '--structure', dest='structure', help="ACTION: prints out all checked in files in the repo", action='store_true', default=False)
+    parser.add_argument('-e', '--file_extensions', dest='file_extensions', help="ACTION: prints out all file_extensions of files in the repo", action='store_true', default=False)
+    parser.add_argument('--files', dest='files', help="ACTION: prints out important files in the repo (with -v all files)", action='store_true', default=False)
+    parser.add_argument('--gitignore', dest='gitignore', help="ACTION: Shows the gitignore file", action='store_true', default=False)
+    parser.add_argument('--config', dest='config', help="ACTION: Shows the config file", action='store_true', default=False)
+    parser.add_argument('--assessment', dest='assessment', help="ACTION: Analyzes the content of the repo to find interesting files or configs (default action)", action='store_true', default=False)
+    parser.add_argument('--useragent', dest='useragent', help="OPTION: overrides the default user agent", type=str, default='RemoteGitRepoAnalyzer')
+    parser.add_argument('--store', dest='store_files', help="OPTION: store the files which have been downloaded", action='store_true', default=False)
+    parser.add_argument('-v', '--verbose', dest='verbose', help="OPTION: verbose mode, shows also unimportant files etc.", action='store_true', default=False)
 
     parsed_arguments = parser.parse_args()
 
@@ -210,7 +210,8 @@ def main():
         config_file = download(url=url_to_config, return_string=True)
         print(config_file)
 
-    elif parsed_arguments.assessment:
+    else:
+        # making an assessment is the default action
         make_assessment(url_to_repo=url_to_repo, verbose=parsed_arguments.verbose)
 
 
