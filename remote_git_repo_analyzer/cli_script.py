@@ -30,7 +30,11 @@ def download(url: str, return_string: bool = False) -> io.BytesIO or str or None
         return None
 
     if STORE_FILES:
-        filename = url.split('.git/')[-1].replace('/', '_').replace('\\', '_').replace('.', '')
+        if '.git/' in url:
+            filename = url.split('.git/')[-1]
+        else:
+            filename = url.split('/')[-1]
+        filename = filename.replace('/', '_').replace('\\', '_').replace('.', '')
         with open('gitRepoAnalyzer_{}'.format(filename), mode='wb') as outout:
             outout.write(response.content)
 
