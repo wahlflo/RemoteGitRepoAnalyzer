@@ -134,7 +134,7 @@ def main():
 
     parser = argparse.ArgumentParser(usage='remoteGitRepoAnalyzer INPUT ACTION [OPTIONS]...', description='A cli script analyze the content of a remote git repo or a local index file', add_help=False)
     parser.add_argument('-u', '--url', dest="url", help="INPUT: URL to remote git repository", type=str, default=None)
-    parser.add_argument('-i', '--index', dest="file_path", help="INPUT: Path to local index file - prints out all checked in files in the repo", type=str, default=None)
+    parser.add_argument('-i', '--index', dest="file_path", help="INPUT: Path to local index file", type=str, default=None)
     parser.add_argument('-h', '--help', dest='help', help="prints the help text", action='store_true', default=False)
     parser.add_argument('-s', '--structure', dest='structure', help="ACTION: prints out all checked in files in the repo", action='store_true', default=False)
     parser.add_argument('-e', '--file_extensions', dest='file_extensions', help="ACTION: prints out all file_extensions of files in the repo", action='store_true', default=False)
